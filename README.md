@@ -30,7 +30,7 @@ docker build -t mboehme/corebench .
 
 ## Usage
 1. Execute `./run.sh` to start a new docker container as instance of mboehme/corebench with a shared directory.
-2. Connect to `<docker-ip>:5900` using [VNC] [VNC] work in the Desktop environment (password: corebench).
+2. Connect to `<docker-ip>:5900` using [VNC] [VNC] to work in the Desktop environment (password: corebench).
 3. Alternatively, use `docker exec -it corebench0 bash` to work in the terminal environment.
 4. Use the folder `/shared` for scripts and other data you would like to maintain. Note that all other data is lost in the event that the container is shut down.
 
