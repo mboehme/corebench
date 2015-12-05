@@ -8,13 +8,13 @@ The dockerfile is
 * adds TightVNC server,
 * resolves all dependencies of coreutils, findutils, grep, and make,
 * installs the revisions of 70 regression errors,
-** after the bug was introduced, and
-** after the bug was fixed
+  * after the bug was introduced, and
+  * after the bug was fixed
 * executes the test cases for each regression error
-** before the bug was introduced (should pass),
-** after the bug was introduced (should fail),
-** before the bug was fixed (should fail), and
-** after the bug was fixed (should pass)
+  * before the bug was introduced (should pass),
+  * after the bug was introduced (should fail),
+  * before the bug was fixed (should fail), and
+  * after the bug was fixed (should pass)
 
 ## Installation
 Download and install [Docker] [Docker]. Then execute
