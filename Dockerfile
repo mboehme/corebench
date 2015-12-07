@@ -80,8 +80,8 @@ WORKDIR /root
 #FIX problem with aclocal and pkg-config
 ENV ACLOCAL_PATH /usr/share/aclocal
 RUN \
-  wget http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz \
-  && tar -zxvf pkg-config-0.28.tar.gz \
+  wget http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz >/dev/null 2>&1 \
+  && tar -zxvf pkg-config-0.28.tar.gz >/dev/null 2>&1\
   && cd pkg-config-0.28 \
   && ./configure --with-internal-glib >/dev/null 2>&1 && make >/dev/null 2>&1 && make install >/dev/null 2>&1
 #FIX problem with aclocal
@@ -96,11 +96,18 @@ RUN \
   && locale-gen zh_CN       \
   && localedef -i ja_JP -c -f SHIFT_JIS /usr/lib/locale/ja_JP.sjis
 
-#Attempt to make as much progress as possible
-ADD corebench.tar.gz /root
+WORKDIR /root
 RUN \
-  tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
+  git clone https://github.com/mboehme/corebench.git \
+  && cp corebench/corebench.tar.gz /root \
+  && cp corebench/startup.sh / \
+  && cp corebench/supervisord.conf / \
+  && cp corebench/password.txt /
+  && rm -rf corebench \
+  && tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
   && mkdir corerepo
+
+#Attempt to make as much progress as possible
 WORKDIR /root/corebench
 RUN ./createCoREBench.sh compile-all make /root/corerepo
 RUN ./createCoREBench.sh compile-all grep /root/corerepo
@@ -119,9 +126,7 @@ RUN ./executeTests.sh test-all find /root/corerepo
 #RUN ./createCoREBench.sh compile core /root/corerepo
 #RUN ./executeTests.sh test-all core /root/corerepo
 
-ADD startup.sh /
-ADD supervisord.conf /
-ADD password.txt /
+
 
 EXPOSE 5800
 EXPOSE 5900
