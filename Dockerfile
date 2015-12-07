@@ -49,6 +49,7 @@ RUN \
     tar             \
     texinfo         \
     subversion      \
+    unzip           \
     vim             \
     wget            
  
@@ -97,7 +98,17 @@ RUN \
   && localedef -i ja_JP -c -f SHIFT_JIS /usr/lib/locale/ja_JP.sjis
 
 #Attempt to make as much progress as possible
-COPY corebench.tar.gz /root
+WORKDIR /root
+RUN \
+  wget --no-check-certificate https://github.com/mboehme/corebench/archive/master.zip \
+  && unzip master.zip \
+  && cp corebench-master/corebench.tar.gz . \
+  && cp corebench-master/startup.sh / \
+  && cp corebench-master/supervisord.conf / \
+  && cp corebench-master/password.txt / \
+  && rm -rf corebench-master
+
+#COPY corebench.tar.gz /root
 RUN \
   tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
   && mkdir corerepo
@@ -119,9 +130,9 @@ RUN ./executeTests.sh test-all find /root/corerepo
 #RUN ./createCoREBench.sh compile core /root/corerepo
 #RUN ./executeTests.sh test-all core /root/corerepo
 
-ADD startup.sh /
-ADD supervisord.conf /
-ADD password.txt /
+#ADD startup.sh /
+#ADD supervisord.conf /
+#ADD password.txt /
 
 EXPOSE 5800
 EXPOSE 5900
