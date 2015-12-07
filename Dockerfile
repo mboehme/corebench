@@ -112,7 +112,10 @@ RUN ./createCoREBench.sh compile make /root/corerepo
 RUN ./createCoREBench.sh compile grep /root/corerepo
 RUN ./createCoREBench.sh compile find /root/corerepo
 #RUN ./createCoREBench.sh compile core /root/corerepo
-RUN ./executeTests.sh test-all /root/corerepo
+RUN ./executeTests.sh test-all make /root/corerepo
+RUN ./executeTests.sh test-all grep /root/corerepo
+RUN ./executeTests.sh test-all find /root/corerepo
+#RUN ./executeTests.sh test-all core /root/corerepo
 
 ADD startup.sh /
 ADD supervisord.conf /
