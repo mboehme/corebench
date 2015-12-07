@@ -23,7 +23,7 @@ docker pull mboehme/corebench
 ```
 Alternatively, you can build manually (takes several hours!)
 ```
-git clone "https://github.com/mboehme/corebench.git"
+git clone https://github.com/mboehme/corebench.git
 cd corebench
 docker build -t mboehme/corebench .
 ```
@@ -42,7 +42,7 @@ docker build -t mboehme/corebench .
 5. Implement `analysis.sh` as your analysis script.
 6. Execute `./executeTests.sh analyze-all [core|find|grep|make|all] /root/corerepo` to execute you analysis in the manner given in Point 4.
 
-**Note:** Use the folder `/shared` for scripts and other data you would like to maintain. Note that all other data is lost in the event that the container is shut down.
+**Note:** Use the folder `/shared` for scripts and other data you would like to maintain. All other data is lost in the event that the container is shut down. For instance, you can copy `/root/corebench` to `/shared`, modify `analysis.sh` and execute `./executeTests.sh` from `/shared`.
 
 
 
