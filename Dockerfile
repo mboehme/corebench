@@ -97,7 +97,7 @@ RUN \
   && localedef -i ja_JP -c -f SHIFT_JIS /usr/lib/locale/ja_JP.sjis
 
 #Attempt to make as much progress as possible
-COPY corebench.tar.gz /root
+ADD corebench.tar.gz /root
 RUN \
   tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
   && mkdir corerepo
