@@ -96,18 +96,11 @@ RUN \
   && locale-gen zh_CN       \
   && localedef -i ja_JP -c -f SHIFT_JIS /usr/lib/locale/ja_JP.sjis
 
-WORKDIR /root
-RUN \
-  git clone https://github.com/mboehme/corebench.git \
-  && cp corebench/corebench.tar.gz /root \
-  && cp corebench/startup.sh / \
-  && cp corebench/supervisord.conf / \
-  && cp corebench/password.txt /
-  && rm -rf corebench \
-  && tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
-  && mkdir corerepo
-
 #Attempt to make as much progress as possible
+COPY corebench.tar.gz /root
+RUN \
+  tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
+  && mkdir corerepo
 WORKDIR /root/corebench
 RUN ./createCoREBench.sh compile-all make /root/corerepo
 RUN ./createCoREBench.sh compile-all grep /root/corerepo
@@ -126,7 +119,9 @@ RUN ./executeTests.sh test-all find /root/corerepo
 #RUN ./createCoREBench.sh compile core /root/corerepo
 #RUN ./executeTests.sh test-all core /root/corerepo
 
-
+ADD startup.sh /
+ADD supervisord.conf /
+ADD password.txt /
 
 EXPOSE 5800
 EXPOSE 5900
