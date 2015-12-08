@@ -19,7 +19,7 @@ The dockerfile is
 ## Installation
 Download and install [Docker] [Docker]. Then execute
 ```
-git clone https://github.com/mboehme/corebench.git #This gives you run.sh
+git clone https://github.com/mboehme/corebench.git      #This gives you run.sh
 docker pull mboehme/corebench
 ```
 Alternatively, you can build manually (takes several hours!)
