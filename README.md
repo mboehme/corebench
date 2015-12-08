@@ -36,13 +36,13 @@ docker build -t mboehme/corebench .
   * **Desktop**. Install [VNC] [VNC] and connect to `<docker-ip>:5900` or `<docker-ip>:5901` (password: corebench).
   * **Terminal**. Execute `./run.sh corebench` or `./run.sh corebenchx`.
 3. Find scripts in directory `/root/corebench` and repository in directory `/root/corerepo`.
-4. Execute `./executeTests.sh test-all [core|find|grep|make] /root/corerepo` to execute the test cases for each regression error
+4. Execute `./executeTests.sh test-all [core|find|grep|make] /root/corerepo` to execute the test for each error
   * before the bug was introduced (should pass),
   * after the bug was introduced (should fail),
   * before the bug was fixed (should fail), and
   * after the bug was fixed (should pass)
 5. Implement `analysis.sh` as your analysis script.
-6. Execute `./executeTests.sh analyze-all [core|find|grep|make] /root/corerepo` to execute you analysis in the manner given in Point 4.
+6. Execute `./executeTests.sh analyze-all [core|find|grep|make] /root/corerepo` to execute your analysis in the manner given in Point 4.
 
 **Note:** Use the folder `/shared` for scripts and other data you would like to maintain. All other data is lost in the event that the container is shut down. For instance, you can copy `/root/corebench` to `/shared`, modify `analysis.sh` and execute `./executeTests.sh` from `/shared`.
 
