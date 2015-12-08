@@ -20,7 +20,8 @@ The dockerfile is
 Download and install [Docker] [Docker]. Then execute
 ```
 git clone https://github.com/mboehme/corebench.git      #This gives you run.sh
-docker pull mboehme/corebench
+docker pull mboehme/corebench                           #This installs container with 48 errors in find, grep, and make
+docker pull mboehme/corebenchx                          #This installs container with 22 errors in coreutils
 ```
 Alternatively, you can build manually (takes several hours!)
 ```
@@ -30,22 +31,20 @@ docker build -t mboehme/corebench .
 ```
 
 ## Usage
-1. Execute `./run.sh` to start a new docker container as instance of mboehme/corebench with a shared directory.
+1. Execute `./run.sh` to start a new docker container with a shared directory.
 2. Connect to docker container 
-  * **Desktop**. Install [VNC] [VNC] and connect to `<docker-ip>:5900` (password: corebench).
-  * **Terminal**. Execute `docker exec -it corebench0 bash`.
-3. Find scripts in directory `/root/corebench` and repository in director `/root/corerepo`.
-4. Execute `./executeTests.sh test-all [core|find|grep|make|all] /root/corerepo` to execute the test cases for each regression error
+  * **Desktop**. Install [VNC] [VNC] and connect to `<docker-ip>:5900` or `<docker-ip>:5901` (password: corebench).
+  * **Terminal**. Execute `./run.sh corebench` or `./run.sh corebenchx`.
+3. Find scripts in directory `/root/corebench` and repository in directory `/root/corerepo`.
+4. Execute `./executeTests.sh test-all [core|find|grep|make] /root/corerepo` to execute the test cases for each regression error
   * before the bug was introduced (should pass),
   * after the bug was introduced (should fail),
   * before the bug was fixed (should fail), and
   * after the bug was fixed (should pass)
 5. Implement `analysis.sh` as your analysis script.
-6. Execute `./executeTests.sh analyze-all [core|find|grep|make|all] /root/corerepo` to execute you analysis in the manner given in Point 4.
+6. Execute `./executeTests.sh analyze-all [core|find|grep|make] /root/corerepo` to execute you analysis in the manner given in Point 4.
 
 **Note:** Use the folder `/shared` for scripts and other data you would like to maintain. All other data is lost in the event that the container is shut down. For instance, you can copy `/root/corebench` to `/shared`, modify `analysis.sh` and execute `./executeTests.sh` from `/shared`.
-
-
 
 
 [Make]: <http://www.gnu.org/software/make/>
