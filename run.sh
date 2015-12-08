@@ -8,6 +8,8 @@ if [ $(docker images | grep -c "mboehme/corebench") -eq 0 ]; then
 fi
 if [ $(docker ps | grep -c "mboehme/corebench") -ne 0 ]; then
   echo "An instance of 'mboehme/corebench' is already running ($(docker ps | grep mboehme/corebench | cut -c-12))"
+  echo "Connecting .."
+  docker exec -it $(docker ps | grep mboehme/corebench | cut -c-12) bash
   exit 1
 fi
 printf "Container: "
@@ -17,3 +19,6 @@ echo
 echo
 echo Note: Once the container removed or broken, any temporary data will be lost!
 echo Use the '/shared'-folder for scripts and data which you would like to keep.  
+echo
+echo Connecting..
+docker exec -it $(docker ps | grep mboehme/corebench | cut -c-12) bash
