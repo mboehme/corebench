@@ -19,9 +19,9 @@ The dockerfile is
 ## Installation
 Download and install [Docker] [Docker]. Then execute
 ```
-git clone https://github.com/mboehme/corebench.git      #This gives you run.sh
-docker pull mboehme/corebench                           #This installs container with 48 errors in find, grep, and make
-docker pull mboehme/corebenchx                          #This installs container with 22 errors in coreutils
+git clone https://github.com/mboehme/corebench.git      #Gives you run.sh
+docker pull mboehme/corebench                           #Installs container w/ 48 errors in find, grep, and make
+docker pull mboehme/corebenchx                          #Installs container w/ 22 errors in coreutils
 ```
 Alternatively, you can build manually (takes several hours!)
 ```
