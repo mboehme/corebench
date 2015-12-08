@@ -6,12 +6,13 @@ if [ $(docker images | grep -c "mboehme/corebench") -eq 0 ]; then
   echo "Execute 'docker build -t mboehme/corebench .' or tag the image as 'mboehme/corebench'".
   exit 1
 fi
-if [ $(docker ps | grep -c "mboehme/corebench") -ne 0]; then
+if [ $(docker ps | grep -c "mboehme/corebench") -ne 0 ]; then
   echo "An instance of 'mboehme/corebench' is already running ($(docker ps | grep mboehme/corebench | cut -c-12))"
   exit 1
 fi
-docker run -dt --name corebench0 -v $(pwd):/shared -p 5900:5900 --dns 8.8.8.8 --dns 8.8.4.4 mboehme/corebench
-echo Now use a VNCViewer to access $(boot2docker ip):5900
+printf "Container: "
+docker run -dt --name corebench0 -v $(pwd):/shared -p 5900:5900 --dns 8.8.8.8 --dns 8.8.4.4 mboehme/corebench | cut -c-12
+echo Now use a VNCViewer to access $(boot2docker ip):5900 (password: $(cat password.txt))
 echo 
 echo
 echo Note: Once the container removed or broken, any temporary data will be lost!
