@@ -8,5 +8,9 @@ services:
 before_install:
 - docker pull mboehme/corebench
 
-script: ./run.sh corebench "cd /root/corebench; ./executeTests.sh test-all make /root/corebench"
+script: 
+- ./run.sh corebench "cd /root && wget --no-check-certificate https://github.com/mboehme/corebench/archive/master.zip && unzip master.zip && cp corebench-master/corebench.tar.gz . && rm -rf corebench && tar -zxvf corebench.tar.gz"
+- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-all make /root/corebench"
+- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-all grep /root/corebench"
+- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-all find /root/corebench"
 
