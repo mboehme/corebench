@@ -24,7 +24,7 @@ execute=$(if [ -z "$2" ]; then echo "bash"; else echo "$2"; fi)
 if [ $(docker ps | grep -c "mboehme/$corebench ") -ne 0 ]; then
   echo "An instance of 'mboehme/$corebench' is already running ($(docker ps | grep "mboehme/$corebench " | cut -c-12))"
   echo "Connecting .."
-  docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) "$execute"
+  docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) "echo '$execute' | bash"
   exit 0
 fi
 
@@ -45,4 +45,4 @@ echo Note: Once the container is removed or broken, any temporary data will be l
 echo Use the '/shared'-folder for scripts and data which you would like to keep.  
 echo
 echo Connecting..
-docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) "$execute"
+docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) "echo '$execute' | bash"
