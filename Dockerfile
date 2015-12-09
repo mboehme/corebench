@@ -108,22 +108,24 @@ WORKDIR /root
 #  && cp corebench-master/password.txt / \
 #  && rm -rf corebench-master
 
+ENV SHELL /bin/bash
+
 COPY corebench.tar.gz /root
 RUN \
   tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
   && mkdir corerepo
 WORKDIR /root/corebench
-#RUN ./createCoREBench.sh compile-all make /root/corerepo
-#RUN ./createCoREBench.sh compile-all grep /root/corerepo
-#RUN ./createCoREBench.sh compile-all find /root/corerepo
+RUN ./createCoREBench.sh compile-all make /root/corerepo
+RUN ./createCoREBench.sh compile-all grep /root/corerepo
+RUN ./createCoREBench.sh compile-all find /root/corerepo
 
 #Now fail if any problems
-#RUN ./createCoREBench.sh compile make /root/corerepo
-#RUN ./createCoREBench.sh compile grep /root/corerepo
-#RUN ./createCoREBench.sh compile find /root/corerepo
-#RUN ./executeTests.sh test-all make /root/corerepo
-#RUN ./executeTests.sh test-all grep /root/corerepo
-#RUN ./executeTests.sh test-all find /root/corerepo
+RUN ./createCoREBench.sh compile make /root/corerepo
+RUN ./createCoREBench.sh compile grep /root/corerepo
+RUN ./createCoREBench.sh compile find /root/corerepo
+RUN ./executeTests.sh test-all make /root/corerepo
+RUN ./executeTests.sh test-all grep /root/corerepo
+RUN ./executeTests.sh test-all find /root/corerepo
 
 ## Installing coreutils will deplete the 10GB limit imposed by Docker
 #RUN ./createCoREBench.sh compile-all core /root/corerepo
@@ -138,5 +140,5 @@ EXPOSE 5800
 EXPOSE 5900
 EXPOSE 22
 
-#WORKDIR /
-#ENTRYPOINT ["/startup.sh"]
+WORKDIR /
+ENTRYPOINT ["/startup.sh"]
