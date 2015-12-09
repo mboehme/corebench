@@ -9,8 +9,8 @@ before_install:
 - docker pull mboehme/corebench
 
 script: 
-- ./run.sh corebench "cd /root && mkdir tmp && cd tmp && git clone https://github.com/mboehme/corebench.git && cd .. && cp tmp/corebench/corebench.tar.gz . && rm -rf corebench && tar -zxvf corebench.tar.gz"
-- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-all make /root/corerepo"
-- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-all grep /root/corerepo"
-- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-all find /root/corerepo"
+#- ./run.sh corebench "cd /root && mkdir tmp && cd tmp && export GIT_SSL_NO_VERIFY=true && git clone https://github.com/mboehme/corebench.git && cd .. && cp tmp/corebench/corebench.tar.gz . && rm -rf corebench && tar -zxvf corebench.tar.gz"
+- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-reg make /root/corerepo"
+- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-reg grep /root/corerepo"
+- ./run.sh corebench "cd /root/corebench && ./executeTests.sh test-reg find /root/corerepo"
 
