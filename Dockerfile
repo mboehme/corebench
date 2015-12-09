@@ -99,44 +99,44 @@ RUN \
 
 #Attempt to make as much progress as possible
 WORKDIR /root
-RUN \
-  wget --no-check-certificate https://github.com/mboehme/corebench/archive/master.zip \
-  && unzip master.zip \
-  && cp corebench-master/corebench.tar.gz . \
-  && cp corebench-master/startup.sh / \
-  && cp corebench-master/supervisord.conf / \
-  && cp corebench-master/password.txt / \
-  && rm -rf corebench-master
+#RUN \
+#  wget --no-check-certificate https://github.com/mboehme/corebench/archive/master.zip \
+#  && unzip master.zip \
+#  && cp corebench-master/corebench.tar.gz . \
+#  && cp corebench-master/startup.sh / \
+#  && cp corebench-master/supervisord.conf / \
+#  && cp corebench-master/password.txt / \
+#  && rm -rf corebench-master
 
-#COPY corebench.tar.gz /root
+COPY corebench.tar.gz /root
 RUN \
   tar -zxvf corebench.tar.gz >/dev/null 2>&1 \
   && mkdir corerepo
 WORKDIR /root/corebench
-RUN ./createCoREBench.sh compile-all make /root/corerepo
-RUN ./createCoREBench.sh compile-all grep /root/corerepo
-RUN ./createCoREBench.sh compile-all find /root/corerepo
+#RUN ./createCoREBench.sh compile-all make /root/corerepo
+#RUN ./createCoREBench.sh compile-all grep /root/corerepo
+#RUN ./createCoREBench.sh compile-all find /root/corerepo
 
 #Now fail if any problems
-RUN ./createCoREBench.sh compile make /root/corerepo
-RUN ./createCoREBench.sh compile grep /root/corerepo
-RUN ./createCoREBench.sh compile find /root/corerepo
-RUN ./executeTests.sh test-all make /root/corerepo
-RUN ./executeTests.sh test-all grep /root/corerepo
-RUN ./executeTests.sh test-all find /root/corerepo
+#RUN ./createCoREBench.sh compile make /root/corerepo
+#RUN ./createCoREBench.sh compile grep /root/corerepo
+#RUN ./createCoREBench.sh compile find /root/corerepo
+#RUN ./executeTests.sh test-all make /root/corerepo
+#RUN ./executeTests.sh test-all grep /root/corerepo
+#RUN ./executeTests.sh test-all find /root/corerepo
 
 ## Installing coreutils will deplete the 10GB limit imposed by Docker
 #RUN ./createCoREBench.sh compile-all core /root/corerepo
 #RUN ./createCoREBench.sh compile core /root/corerepo
 #RUN ./executeTests.sh test-all core /root/corerepo
 
-#ADD startup.sh /
-#ADD supervisord.conf /
-#ADD password.txt /
+ADD startup.sh /
+ADD supervisord.conf /
+ADD password.txt /
 
 EXPOSE 5800
 EXPOSE 5900
 EXPOSE 22
 
-WORKDIR /
-ENTRYPOINT ["/startup.sh"]
+#WORKDIR /
+#ENTRYPOINT ["/startup.sh"]

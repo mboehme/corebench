@@ -17,7 +17,7 @@ if [ $(docker images | grep -c "mboehme/corebench*") -gt 1 ] && [ -z "$1" ]; the
   exit 1
 fi
 
-corebench=$(if [ -z "$1" ]; then echo $(docker images | grep "mboehme/corebench*" | cut -d" " -f1); else echo "$1")
+corebench=$(if [ -z "$1" ]; then echo $(docker images | grep "mboehme/corebench*" | cut -d" " -f1 | cut -c9-); else echo "$1"; fi)
 
 if [ $(docker ps | grep -c "mboehme/$corebench ") -ne 0 ]; then
   echo "An instance of 'mboehme/$corebench' is already running ($(docker ps | grep "mboehme/$corebench " | cut -c-12))"
