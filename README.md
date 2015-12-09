@@ -25,9 +25,15 @@ docker pull mboehme/corebenchx                     #Installs container w/ 22 err
 ```
 Alternatively, you can build manually (takes several hours!)
 ```
+# Build container for errors in find, grep, and make
 git clone https://github.com/mboehme/corebench.git
 cd corebench
 docker build -t mboehme/corebench .
+
+# Build container for errors in coreutils
+git clone https://github.com/mboehme/corebenchx.git
+cd corebenchx
+docker build -t mboehme/corebenchx .
 ```
 
 ## Usage
