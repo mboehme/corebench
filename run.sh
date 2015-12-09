@@ -26,7 +26,7 @@ if [ $(docker ps | grep -c "mboehme/$corebench ") -ne 0 ]; then
   if [ -z "$2" ]; then 
     docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash
   else 
-    docker exec $(docker ps | grep "mboehme/$corebench " | cut -c-12) echo "$2" | bash
+    echo "$2" | docker exec -i $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash 
   fi
   exit 0
 fi
@@ -51,5 +51,5 @@ echo Connecting..
 if [ -z "$2" ]; then 
   docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash
 else 
-  docker exec $(docker ps | grep "mboehme/$corebench " | cut -c-12) echo "$2" | bash 
+  echo "$2" | docker exec -i $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash 
 fi
