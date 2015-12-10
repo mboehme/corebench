@@ -1,6 +1,7 @@
-# CoREBench Dockerfile
+# CoREBench Dockerfile ![alt text](https://travis-ci.org/mboehme/corebench.svg?branch=master "Test Results corebench")
 Actual Regression Errors for Software Debugging and Repair Research.  
 More information at http://www.comp.nus.edu.sg/~release/corebench/.
+
 
 The dockerfile is 
 * based on the official Ubuntu 14.04 docker image,

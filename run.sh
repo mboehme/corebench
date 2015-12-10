@@ -18,6 +18,7 @@ if [ $(docker images | grep -c "mboehme/corebench*") -gt 1 ] && [ -z "$1" ]; the
   exit 1
 fi
 
+exit_code=0
 corebench=$(if [ -z "$1" ]; then echo $(docker images | grep "mboehme/corebench*" | cut -d" " -f1 | cut -c9-); else echo "$1"; fi)
 
 if [ $(docker ps | grep -c "mboehme/$corebench ") -ne 0 ]; then
@@ -27,8 +28,9 @@ if [ $(docker ps | grep -c "mboehme/$corebench ") -ne 0 ]; then
     docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash
   else 
     echo "$2" | docker exec -i $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash 
+    exit_code=$?
   fi
-  exit 0
+  exit $exit_code
 fi
 
 if [[ "$corebench" == "corebench" ]]; then
@@ -52,4 +54,6 @@ if [ -z "$2" ]; then
   docker exec -it $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash
 else 
   echo "$2" | docker exec -i $(docker ps | grep "mboehme/$corebench " | cut -c-12) bash 
+  exit_code=$?
 fi
+exit $exit_code
